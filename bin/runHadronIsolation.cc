@@ -1,6 +1,5 @@
-#include "UserCode/diall/analyzePFvsCaloJetsppData5TeV.C"
+#include "UserCode/diall/analyzeHadronIsolation.C"
 
-//#include "FWCore/FWLite/interface/AutoLibraryLoader.h"
 #include "FWCore/FWLite/interface/FWLiteEnabler.h"
 #include "FWCore/PythonParameterSet/interface/MakeParameterSets.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
@@ -18,9 +17,8 @@ int main(int argc, char* argv[])
 {
   // load framework libraries
   gSystem->Load( "libFWCoreFWLite" );
-//  AutoLibraryLoader::enable();
   FWLiteEnabler::enable();
-
+  
   //check arguments
   if ( argc < 2 ) 
     {
@@ -35,6 +33,10 @@ int main(int argc, char* argv[])
     firstFile = atoi(argv[2]);
     lastFile = atoi(argv[3]);
   }
+
+  Int_t firstEvent = 0;
+  if(argc>3)
+    firstEvent = atoi(argv[4]);
   
   std::cout << "Have " << argc << " arguments:" << std::endl;
   for (int i = 0; i < argc; ++i) {
@@ -47,12 +49,12 @@ int main(int argc, char* argv[])
 
   for (std::vector<std::string>::const_iterator i = urls.begin(); i != urls.end(); ++i)
     std::cout << *i << std::endl;
-  
-  std::string outname = "AnaResultsPFvsCaloJets.root";
+
+  std::string outname = Form("AnaResultsHadronIsolation_%d.root",firstEvent);
   // std::string outname = runProcess.getParameter<std::string>("output");
   int maxEvts = runProcess.getParameter<int>("maxEvents");
    
-  analyzePFvsCaloJetsppData(urls,outname.c_str(),maxEvts,firstFile,lastFile);
+  analyzeHadronIsolation(urls,outname.c_str(),maxEvts,firstFile,lastFile,firstEvent);
   
   cout << "Results have been stored in " << outname << endl;
 }
