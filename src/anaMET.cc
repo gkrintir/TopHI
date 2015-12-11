@@ -29,14 +29,17 @@ anaMET::anaMET(const char *name, const char *title)
 //----------------------------------------------------------
 void anaMET::Exec(Option_t * /*option*/)
 {
+  
    //printf("anaMET executing\n");
+   //if(!SelectEvent()) return;
+
    if(!fInitOutput) CreateOutputObjects();
 
    //Get objects from event
    //
    //Get particles from which MET will be calculated
    if(!fParticles && !fParticlesName.IsNull()) {
-     //  fEventObjects->Print();
+     fEventObjects->Print();
      fParticles = dynamic_cast<TClonesArray*>(fEventObjects->FindObject(fParticlesName.Data()));
      //inheritance check gives crash. Don't know why. Skipping for now. Dangerous
      //     if(fParticles)
@@ -53,8 +56,9 @@ void anaMET::Exec(Option_t * /*option*/)
      return;
    }
    
-   Double_t cent = fHiEvent->GetCentrality();
-   
+
+   Double_t cent = 5.;//fHiEvent->GetCentrality();
+   //printf("anaMET executing\n");
    TLorentzVector p4(0.,0.,0.,0.);
    Double_t sumEt = 0.;
 
@@ -63,7 +67,7 @@ void anaMET::Exec(Option_t * /*option*/)
    TLorentzVector r4[nptmin];
    for(Int_t j = 0; j<nptmin; ++j)
      r4[j].SetPtEtaPhiM(0.,0.,0.,0.);
-   
+   //printf("anaMET executing\n");
    for (int i = 0; i < fParticles->GetEntriesFast(); i++) {
      particleBase *p = static_cast<particleBase*>(fParticles->At(i));
      if(!p) {
@@ -90,6 +94,7 @@ void anaMET::Exec(Option_t * /*option*/)
          Printf("%s ERROR: couldn't cast particle to pfParticle",GetName());
          return;
        }
+       if (pf->GetPuppiWeight()!=0) printf("weight %f\n", pf->GetPuppiWeight());
        l = pf->GetPuppiWeight()*p->GetLorentzVector();
      }
      

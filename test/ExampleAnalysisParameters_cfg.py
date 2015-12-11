@@ -18,7 +18,7 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 #print('anaFile: ',options.anaFile)
 
 tt_PbPb=("ZMMpp_v0.root","/store/group/phys_heavyions/velicanu/forest/Run2015E/SingleMuHighPt/RAW-RECO/ZMM-PromptReco-v1/Merged/")
-DY_PbPb=("DY_PbPb.root","/store/cmst3/group/hintt/CMSSW/DY/NTUPLE")
+DY_PbPb=("42467c6e0e6d128154c1c654e48a8d3f/step3_1000_1_o3a.root","/store/user/dgulhan/Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV_GEN_SIM/Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV_RECODEBUG/")
 QCDEM_PbPb=("QCDEM_PbPb.root","/store/cmst3/group/hintt/CMSSW/QCDEMriched_80to250/NTUPLE")
 QCDDJ_PbPb=("QCDDJ_PbPb.root","/store/cmst3/user/mverweij/jetsPbPb/Run2Prep/Dijet80CMSSW753p1/v6/PyquenUnquenched_Dijet_NcollFilt_pthat80_740pre8_MCHI1_74_V4_GEN-SIM_v3/crab_HiForestDijet80Run2Fullv6/151020_135458")
 HCALMeth2=("HCALM2.root","/store/user/istaslis/PyquenUnquenched_Dijet_NcollFilt_pthat80_753patch1_RECODEBUG_FOREST/")

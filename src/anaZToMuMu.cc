@@ -50,6 +50,7 @@ void anaZToMuMu::Exec(Option_t * /*option*/)
    if(fZs) fZs->Delete();
 
    Double_t cent = fHiEvent->GetCentrality();
+   printf("%f!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", cent);
    Int_t nmuons = fMuons->GetEntriesFast();
    Printf("nmuons: %d",nmuons);
    fh1NMuons->Fill(nmuons);

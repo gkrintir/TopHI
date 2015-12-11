@@ -82,7 +82,6 @@ bool anaBaseTask::SelectEvent() const {
   //triggers
 
   bool accept = true;
-  
   if(fHiEvent) {
     //if(fCollSel && !fHiEvent->GetColl()) { accept = false;
     //  printf("accept 1 %d %d %d\n", accept, fCollSel, !fHiEvent->GetColl()); }
