@@ -37,6 +37,7 @@ public:
   Double_t          fMinJetPt;             //minimum jet pt
   Double_t          fMaxJetPt;             //maximum jet pt
   bool              fDoLeadingJet;         //do analysis only with leading jet
+  TH1F             *fh1uParaZllPt;
   
   TH1F             *fh1HiHF;               //!HFE distribution
   TH1F             *fh1Cent;               //!centrality distribution

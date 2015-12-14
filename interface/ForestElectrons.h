@@ -31,42 +31,59 @@ public :
    Float_t         Gen_eta[maxForestElectrons];   //[Gen_nptl]
    Float_t         Gen_phi[maxForestElectrons];   //[Gen_nptl]
    // RecoElectron info
-   Int_t           Glb_nptl;
-   std::vector<Int_t>           *Glb_charge=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_p=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_pt=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_eta=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_phi=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_dxy=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_dz=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_nValMuHits=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_nValTrkHits=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_nValPixHits=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_trkLayerWMeas=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_nMatchedStations=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_nTrkFound=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_glbChi2_ndof=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_trkChi2_ndof=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_pixLayerWMeas=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_trkDxy=0;   //[Glb_nptl]
-   std::vector<Float_t>         *Glb_trkDz=0;   //[Glb_nptl]
-   std::vector<Int_t>           *Glb_trkQuality=0; //[Glb_nptl]
-   std::vector<Int_t>           *Glb_isGood=0; //[Glb_nptl]
-   std::vector<Float_t>         *Glb_pfChIso=0; //[Glb_nptl]
-   std::vector<Float_t>         *Glb_pfPhoIso=0; //[Glb_nptl]
-   std::vector<Float_t>         *Glb_pfNeuIso=0; //[Glb_nptl]
-   std::vector<Float_t>         *Glb_pfPUIso=0; //[Glb_nptl]
-   std::vector<Int_t>           *Glb_isArbitrated=0;   //[Glb_nptl]
-   //Needed ? 
-   Int_t                        Sta_nptl;
-   std::vector<Int_t>           *Sta_charge=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_p=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_pt=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_eta=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_phi=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_dxy=0;   //[Sta_nptl]
-   std::vector<Float_t>         *Sta_dz=0;   //[Sta_nptl]
-   // Dimuon
+   Int_t           nEle;
+   std::vector<Int_t>     *eleCharge;
+   std::vector<Int_t>     *eleChargeConsistent;
+   std::vector<Float_t>   *eleEn;
+   std::vector<Float_t>   *eleD0;
+   std::vector<Float_t>   *eleDz;
+   std::vector<Float_t>   *eleD0Err;
+   std::vector<Float_t>   *eleDzErr;
+   std::vector<Float_t>   *eleTrkPt;
+   std::vector<Float_t>   *eleTrkEta;
+   std::vector<Float_t>   *eleTrkPhi;
+   std::vector<Int_t>     *eleTrkCharge;
+   std::vector<Float_t>   *eleTrkChi2;
+   std::vector<Float_t>   *eleTrkNdof;
+   std::vector<Float_t>   *eleTrkNormalizedChi2;
+   std::vector<Int_t>     *eleTrkValidHits;
+   std::vector<Int_t>     *eleTrkLayers;
+   std::vector<Float_t>   *elePt;
+   std::vector<Float_t>   *eleEta;
+   std::vector<Float_t>   *elePhi;
+   std::vector<Float_t>   *eleSCEn;
+   std::vector<Float_t>   *eleESEn;
+   std::vector<Float_t>   *eleSCEta;
+   std::vector<Float_t>   *eleSCPhi;
+   std::vector<Float_t>   *eleSCRawEn;
+   std::vector<Float_t>   *eleSCEtaWidth;
+   std::vector<Float_t>   *eleSCPhiWidth;
+   std::vector<Float_t>   *eleHoverE;
+   std::vector<Float_t>   *eleEoverP;
+   std::vector<Float_t>   *eleEoverPInv;
+   std::vector<Float_t>   *eleBrem;
+   std::vector<Float_t>   *eledEtaAtVtx;
+   std::vector<Float_t>   *eledPhiAtVtx;
+   std::vector<Float_t>   *eleSigmaIEtaIEta;
+   std::vector<Float_t>   *eleSigmaIEtaIEta_2012;
+   std::vector<Float_t>   *eleSigmaIPhiIPhi;
+   std::vector<Int_t>     *eleMissHits;
+   std::vector<Float_t>   *eleESEffSigmaRR;
+   std::vector<Float_t>   *elePFChIso;
+   std::vector<Float_t>   *elePFPhoIso;
+   std::vector<Float_t>   *elePFNeuIso;
+   std::vector<Float_t>   *elePFPUIso;
+   std::vector<Float_t>   *elePFChIso03;
+   std::vector<Float_t>   *elePFPhoIso03;
+   std::vector<Float_t>   *elePFNeuIso03;
+   std::vector<Float_t>   *elePFChIso04;
+   std::vector<Float_t>   *elePFPhoIso04;
+   std::vector<Float_t>   *elePFNeuIso04;
+   std::vector<Float_t>   *eleBC1E;
+   std::vector<Float_t>   *eleBC1Eta;
+   std::vector<Float_t>   *eleBC2E;
+   std::vector<Float_t>   *eleBC2Eta;
+   // Dielectron
    Int_t                        Di_npair;
    std::vector<Float_t>         *Di_vProb=0;   //[Di_npair]
    std::vector<Float_t>         *Di_mass=0;   //[Di_npair]
@@ -114,42 +131,59 @@ public :
    TBranch        *b_Gen_eta;   //!
    TBranch        *b_Gen_phi;   //!
    // RecoElectron info
-   TBranch        *b_Glb_nptl;   //!
-   TBranch        *b_Glb_charge;   //!
-   TBranch        *b_Glb_p;   //!
-   TBranch        *b_Glb_pt;   //!
-   TBranch        *b_Glb_eta;   //!
-   TBranch        *b_Glb_phi;   //!
-   TBranch        *b_Glb_dxy;   //!
-   TBranch        *b_Glb_dz;   //!
-   TBranch        *b_Glb_nValMuHits;   //!
-   TBranch        *b_Glb_nValTrkHits;   //!
-   TBranch        *b_Glb_nValPixHits;   //!
-   TBranch        *b_Glb_trkLayerWMeas;   //!
-   TBranch        *b_Glb_nMatchedStations;   //!
-   TBranch        *b_Glb_nTrkFound;   //!
-   TBranch        *b_Glb_glbChi2_ndof;   //!
-   TBranch        *b_Glb_trkChi2_ndof;   //!
-   TBranch        *b_Glb_pixLayerWMeas;   //!
-   TBranch        *b_Glb_trkDxy;   //!
-   TBranch        *b_Glb_trkDz;   //!
-   TBranch        *b_Glb_trkQuality;
-   TBranch        *b_Glb_isGood;
-   TBranch        *b_Glb_pfChIso;
-   TBranch        *b_Glb_pfPhoIso;
-   TBranch        *b_Glb_pfNeuIso;
-   TBranch        *b_Glb_pfPUIso;
-   TBranch        *b_Glb_isArbitrated;   //!
-   // Needed?
-   TBranch        *b_Sta_nptl;   //!
-   TBranch        *b_Sta_charge;   //!
-   TBranch        *b_Sta_p;   //!
-   TBranch        *b_Sta_pt;   //!
-   TBranch        *b_Sta_eta;   //!
-   TBranch        *b_Sta_phi;   //!
-   TBranch        *b_Sta_dxy;   //!
-   TBranch        *b_Sta_dz;   //!
-   //Dimuons
+   TBranch        *b_nEle;
+   TBranch        *b_eleCharge;
+   TBranch        *b_eleChargeConsistent;
+   TBranch        *b_eleEn;
+   TBranch        *b_eleD0;
+   TBranch        *b_eleDz;
+   TBranch        *b_eleD0Err;
+   TBranch        *b_eleDzErr;
+   TBranch        *b_eleTrkPt;
+   TBranch        *b_eleTrkEta;
+   TBranch        *b_eleTrkPhi;
+   TBranch        *b_eleTrkCharge;
+   TBranch        *b_eleTrkChi2;
+   TBranch        *b_eleTrkNdof;
+   TBranch        *b_eleTrkNormalizedChi2;
+   TBranch        *b_eleTrkValidHits;
+   TBranch        *b_eleTrkLayers;
+   TBranch        *b_elePt;
+   TBranch        *b_eleEta;
+   TBranch        *b_elePhi;
+   TBranch        *b_eleSCEn;
+   TBranch        *b_eleESEn;
+   TBranch        *b_eleSCEta;
+   TBranch        *b_eleSCPhi;
+   TBranch        *b_eleSCRawEn;
+   TBranch        *b_eleSCEtaWidth;
+   TBranch        *b_eleSCPhiWidth;
+   TBranch        *b_eleHoverE;
+   TBranch        *b_eleEoverP;
+   TBranch        *b_eleEoverPInv;
+   TBranch        *b_eleBrem;
+   TBranch        *b_eledEtaAtVtx;
+   TBranch        *b_eledPhiAtVtx;
+   TBranch        *b_eleSigmaIEtaIEta;
+   TBranch        *b_eleSigmaIEtaIEta_2012;
+   TBranch        *b_eleSigmaIPhiIPhi;
+   TBranch        *b_eleMissHits;
+   TBranch        *b_eleESEffSigmaRR;
+   TBranch        *b_elePFChIso;
+   TBranch        *b_elePFPhoIso;
+   TBranch        *b_elePFNeuIso;
+   TBranch        *b_elePFPUIso;
+   TBranch        *b_elePFChIso03;
+   TBranch        *b_elePFPhoIso03;
+   TBranch        *b_elePFNeuIso03;
+   TBranch        *b_elePFChIso04;
+   TBranch        *b_elePFPhoIso04;
+   TBranch        *b_elePFNeuIso04;
+   TBranch        *b_eleBC1E;
+   TBranch        *b_eleBC1Eta;
+   TBranch        *b_eleBC2E;
+   TBranch        *b_eleBC2Eta;
+   //Dielectrons
    TBranch        *b_Di_npair;   //!
    TBranch        *b_Di_vProb;   //!
    TBranch        *b_Di_mass;   //!

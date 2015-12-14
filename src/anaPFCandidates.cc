@@ -18,6 +18,7 @@ anaPFCandidates::anaPFCandidates(const char *name, const char *title)
   fMinJetPt(80.),
   fMaxJetPt(100.),
   fDoLeadingJet(false),
+  fh1uParaZllPt(),
   fh1HiHF(0x0),
   fh1Cent(0x0),
   fh1NPV(0x0),
@@ -85,7 +86,7 @@ void anaPFCandidates::Exec(Option_t * /*option*/)
    if(!fParticles && !fParticlesName.IsNull()) {
      fParticles = dynamic_cast<TClonesArray*>(fEventObjects->FindObject(fParticlesName.Data()));
    }
-   
+   Printf("%s: ",fParticlesName.Data());
    if(!fParticles) {
      Printf("%s: WARNING: Couldn't locate %s branch",GetName(),fParticlesName.Data());
      return;
@@ -115,7 +116,8 @@ void anaPFCandidates::Exec(Option_t * /*option*/)
    if(fHiEvent) {
      if(fHiEvent->GetWeight()>0.) weight = fHiEvent->GetWeight();
    }
-   
+
+   Double_t sumEt = 0.;
    for (int i = 0; i < fParticles->GetEntriesFast(); i++) {
      particleBase *p = static_cast<particleBase*>(fParticles->At(i));
      if(!p) {
@@ -123,8 +125,11 @@ void anaPFCandidates::Exec(Option_t * /*option*/)
        continue;
      }
      if(p->Pt()<1e-3) continue;    
-
+     
      Int_t id = p->GetId();
+     
+     TLorentzVector l = p->GetLorentzVector();
+     sumEt+=l.Et();
 /*
      if(id>-1 && id<10) {
        fh3CentPtEta[id]->Fill(cent,p->Pt(),p->Eta(),weight);
@@ -140,6 +145,7 @@ void anaPFCandidates::Exec(Option_t * /*option*/)
        }
      }
    }
+   fh1uParaZllPt->Fill(sumEt);
 
    // Printf("do jets");
    if(fJetsCont) {
@@ -217,6 +223,8 @@ void anaPFCandidates::CreateOutputObjects() {
     Printf("anaPFCandidates: fOutput not present");
     return;
   }
+  fh1uParaZllPt =  new TH1F("fh1uParaZllPt","ffh1uParaZllPt;upara+qt",100,0.,200.);
+  fOutput->Add(fh1uParaZllPt);
 
   TString histName = "";
   TString histTitle = "";

@@ -44,7 +44,7 @@ centralityBins=centralityRequirements["inc"]
 
 config = cms.PSet(
     output = cms.string('cen_%dto%d_%s'%(centralityBins[0],centralityBins[1],sample[0])),
-    input  = cms.vstring( fillFromStore(sample[1]) ),
+    input  = cms.vstring( 'root://xrootd.cmsaf.mit.edu//store/user/dgulhan/Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV_GEN_SIM/HiForest_Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV/151204_102722/0000/HiForest_1.root' ),
     maxEvents = cms.int32(-1),#-1),
     minCentrality = cms.int32(centralityBins[0]),
     maxCentrality = cms.int32(centralityBins[1])#,

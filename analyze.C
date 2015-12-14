@@ -1,6 +1,7 @@
 #include "UserCode/diall/interface/genParticleProducer.h"
 #include "UserCode/diall/interface/hiEventProducer.h"
 #include "UserCode/diall/interface/lwMuonProducer.h"
+#include "UserCode/diall/interface/lwElectronProducer.h"
 #include "UserCode/diall/interface/pfParticleProducer.h"
 #include "UserCode/diall/interface/LWJetProducer.h"
 #include "UserCode/diall/interface/lwJetContainer.h"
@@ -51,9 +52,23 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   //add files to chain
   TChain *chain = NULL;
   chain = new TChain("hiEvtAnalyzer/HiTree");
-  for(size_t i=firstFile; i<lastFile; i++) chain->Add(urls[i].c_str());
+  //chain = new TChain("HiGenParticleAna/hi");
+  for(size_t i=firstFile; i<lastFile; i++) {chain->Add(urls[i].c_str());   printf("%s", urls[i].c_str());}
   Printf("hiTree done");
   
+
+  TChain *pfTree = new TChain("pfcandAnalyzer/pfTree");
+  for(size_t i=firstFile; i<lastFile; i++) pfTree->Add(urls[i].c_str());
+  chain->AddFriend(pfTree);
+  Printf("pfTree done");
+
+
+  TChain *jetTree = new TChain("ak4PFJetAnalyzer/t");//akPu4CaloJetAnalyzer/t");                                                      
+  for(size_t i=firstFile; i<lastFile; i++) jetTree->Add(urls[i].c_str());
+  chain->AddFriend(jetTree);
+  Printf("jetTree done");
+
+
   TChain *hltTree = new TChain("hltanalysis/HltTree");
   for(size_t i=firstFile; i<lastFile; i++) hltTree->Add(urls[i].c_str());
   chain->AddFriend(hltTree);
@@ -63,11 +78,6 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   for(size_t i=firstFile; i<lastFile; i++) skimTree->Add(urls[i].c_str());
   chain->AddFriend(skimTree);
   Printf("skimTree done");
-
-  TChain *pfTree = new TChain("pfcandAnalyzer/pfTree");
-  for(size_t i=firstFile; i<lastFile; i++) pfTree->Add(urls[i].c_str());
-  chain->AddFriend(pfTree);
-  Printf("pfTree done");
 
   TChain *muTree = new TChain("ggHiNtuplizer/EventTree");
   for(size_t i=firstFile; i<lastFile; i++) muTree->Add(urls[i].c_str());
@@ -99,23 +109,31 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   p_pf->SetInput(chain);
   p_pf->SetpfParticlesName("pfParticles");
   p_pf->SetEventObjects(fEventObjects);
-
+  
   lwMuonProducer *p_mu = new lwMuonProducer("lwMuonProd");
   p_mu->SetInput(chain);
   p_mu->SetlwMuonsRecoName("lwMuonsReco");
   //p_mu->SetlwMuonsGeneName("lwMuonsGene");
   p_mu->SetEventObjects(fEventObjects);
+  
+  /*
+  lwElectronProducer *p_mu = new lwElectronProducer("lwElectronProd");
+  p_mu->SetInput(chain);
+  p_mu->SetlwElectronsRecoName("lwElectronsReco");
+  //p_mu->SetlwMuonsGeneName("lwMuonsGene");                                                                                         
+  p_mu->SetEventObjects(fEventObjects);
+  */
+  lwJetFromForestProducer *p_PUJet = new lwJetFromForestProducer("lwJetForestProd");
+  p_PUJet->SetInput(chain);
+  p_PUJet->SetJetContName("akt4PF");
+  p_PUJet->SetGenJetContName("akt4Gen");
+  p_PUJet->SetEventObjects(fEventObjects);
+  p_PUJet->SetRadius(0.4);
 
   genParticleProducer *p_gen = new genParticleProducer("genParticleProd");
   p_gen->SetInput(chain);
   p_gen->SetGenParticlesName("genParticles");
   p_gen->SetEventObjects(fEventObjects);
-  
-  lwJetFromForestProducer *p_PUJet = new lwJetFromForestProducer("lwJetForestProd");
-  p_PUJet->SetInput(chain);
-  p_PUJet->SetJetContName("aktPUR030");
-  p_PUJet->SetEventObjects(fEventObjects);
-
   
   //---------------------------------------------------------------
   //analysis modules
@@ -123,7 +141,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
 
   //handler to which all modules will be added
   anaBaseTask *handler = new anaBaseTask("handler","handler");
-
+  /*
   //analysis modules which also produce
   //kt jet finder
   LWJetProducer *lwjkt = new LWJetProducer("LWJetProducerKTR020","LWJetProducerKTR020");
@@ -254,6 +272,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   // muonIsoGen->SetMuonsGenName("");
   // muonIsoGen->SetPFPartName("genParticles");
   // muonIsoGen->SetIsolationType(anaMuonIsolation::kGen);
+  */
   /*
   if(doMuonIsolation) {
     handler->Add(muonIsoRaw);
@@ -263,6 +282,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
     if(doPuppi) handler->Add(muonIsoPuppi);
   }
   */
+  /*
   if(doMuonIsoInBJet) {
     anaMuonIsolation *muonIsoRawBjet = new anaMuonIsolation("muonIsoRawBjet","muonIsoRawBjet");
     muonIsoRawBjet->ConnectEventObject(fEventObjects);
@@ -317,6 +337,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
     muonIsoPuppiBjet->SetIsolationType(anaMuonIsolation::kPuppi);
     muonIsoPuppiBjet->SetCheckBjet(kTRUE);
     muonIsoPuppiBjet->SetJetContName("aktPUR030");
+  */
     /*
     handler->Add(muonIsoRawBjet);
     handler->Add(muonIsoVSBjet);
@@ -324,16 +345,23 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
     handler->Add(muonIsoCSBjet);
     if(doPuppi) handler->Add(muonIsoPuppiBjet);
     */
-  }
+  // }
 
   anaMETPerformance *metPFRaw = new anaMETPerformance("metPFRaw","metPFRaw");
   metPFRaw->ConnectEventObject(fEventObjects);
   metPFRaw->SetHiEvtName("hiEventContainer");
   metPFRaw->SetParticlesName("pfParticles");
-  metPFRaw->SetMuonsName("lwMuonsReco");
+  metPFRaw->SetMuonsName("lwElectronsReco");
   metPFRaw->SetMetType(anaMETPerformance::kPFRaw);
   handler->Add(metPFRaw);
 
+  anaMETPerformance *metPFRaw_ee = new anaMETPerformance("metPFRaw_ee","metPFRaw_ee");
+  metPFRaw_ee->ConnectEventObject(fEventObjects);
+  metPFRaw_ee->SetHiEvtName("hiEventContainer");
+  metPFRaw_ee->SetParticlesName("pfParticles");
+  metPFRaw_ee->SetMuonsName("lwElectronsReco");
+  metPFRaw_ee->SetMetType(anaMETPerformance::kPFRaw);
+  handler->Add(metPFRaw_ee);
   /*
   anaMET *metPFRaw = new anaMET("metPFRaw","metPFRaw");
   metPFRaw->ConnectEventObject(fEventObjects);
@@ -342,6 +370,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   metPFRaw->SetMetType(anaMET::kPFRaw);
   //handler->Add(metPFRaw);
   */
+  /*
   anaMET *metVS = new anaMET("metVS","metVS");
   metVS->ConnectEventObject(fEventObjects);
   metVS->SetHiEvtName("hiEventContainer");
@@ -441,7 +470,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   //ZToMuMuGenAll->SetMuonsName("genParticles");
   //ZToMuMuGenAll->SetCheckPid(kTRUE);
   //handler->Add(ZToMuMuGenAll);
-	  
+  */
   //---------------------------------------------------------------
   //output tree
   //  TTree *tree_out = new TTree("tree_out","lwTree");
@@ -458,7 +487,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
     p_pf->Run(jentry);    //pf particles
     p_mu->Run(jentry);    //muons
     //p_gen->Run(jentry);    //generated particles
-    //p_PUJet->Run(jentry); //forest jets
+    p_PUJet->Run(jentry); //forest jets
 	    
     // lwjkt->FindJets();   //kt jets
     // lwjaktGen->FindJets(); //akt gen jets

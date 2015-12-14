@@ -37,20 +37,31 @@ class lwElectronProducer : public inputBase {
   TClonesArray                *flwElectronsReco;    //!reco muons
   TString                      flwElectronsGeneName;// name of gene muons
   TClonesArray                *flwElectronsGene;    //!gene muons
-  ForestElectrons                  fElectrons;          //! Electrons in forest tree
+  ForestElectrons              fElectrons;          //! Electrons in forest tree
   Float_t                      fPtMin;          // minimum pT
   Float_t                      fMaxEtaAbs;      // max eta
-  Float_t                      fMaxTrkChi2;     // max chi2
-  Float_t                      fMaxGlbChi2;     // max chi2
-  Int_t                        fMinNMuHits;     // min muon hits
-  Int_t                        fMinMS;          // #matched stations
-  Float_t                      fMaxDxy;         // max dxy
-  Float_t                      fMaxDz;          // max dz
-  Float_t                      fMaxtrkDxy;      // max innerTrack dxy
-  Float_t                      fMaxtrkDz;       // max innerTrack dz
-  Int_t                        fMinNPixHits;    // min pixel hits
-  Int_t                        fMinTrkLWM;      // min tracker layer hits
+  
+  Float_t                      fMaxdEtaAtVtxBarrel;   // Please add description!
+  Float_t                      fMaxdPhiAtVtxBarrel;   // 
+  Float_t                      fMaxSigmaIEtaIEtaBarrel;
+  Float_t                      fMaxHoverEBarrel;     // 
+  Float_t                      fMaxDxyBarrel;        // 
+  Float_t                      fMaxDzBarrel;        //
+  Float_t                      fMaxEoverPInvBarrel;  // 
+  Int_t                        fMaxMissHitsBarrel;   // 
+  Bool_t                       fPassConversionVetoBarrel;  // 
 
+  Float_t                      fMaxdEtaAtVtxEndcap;   // 
+  Float_t                      fMaxdPhiAtVtxEndcap;   // 
+  Float_t                      fMaxSigmaIEtaIEtaEndcap;
+  Float_t                      fMaxHoverEEndcap;     // 
+  Float_t                      fMaxDxyEndcap;        // 
+  Float_t                      fMaxDzEndcap;        // 
+  Float_t                      fMaxEoverPInvEndcap;  // 
+  Int_t                        fMaxMissHitsEndcap;   // 
+  Bool_t                       fPassConversionVetoEndcap;  // 
+
+  
  private:
   lwElectronProducer(const lwElectronProducer& obj); // copy constructor
   lwElectronProducer& operator=(const lwElectronProducer& other); // assignment

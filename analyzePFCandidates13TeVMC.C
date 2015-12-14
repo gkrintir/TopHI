@@ -52,7 +52,7 @@ void analyzePFCandidates(std::vector<std::string> urls, const char *outname = "e
   if(firstEvent>0) {
     lastEvent = firstEvent + nentries;
   }
-  std::cout << "firstEvent: " << firstEvent << std::endl;
+  std::cout << "firstEvent: " << firstEvent << "lastEvent: "<<lastEvent<< std::endl;
  
   //add files to chain
   TChain *chain = NULL;
@@ -72,10 +72,10 @@ void analyzePFCandidates(std::vector<std::string> urls, const char *outname = "e
   // chain->AddFriend(muTree);
   // Printf("muTree done");
 
-  TChain *pileupTree = new TChain("pileup/tree");
-  for(size_t i=firstFile; i<lastFile; i++) pileupTree->Add(urls[i].c_str());
-  chain->AddFriend(pileupTree);
-  Printf("pileupTree done");
+  //TChain *pileupTree = new TChain("pileup/tree");
+  //for(size_t i=firstFile; i<lastFile; i++) pileupTree->Add(urls[i].c_str());
+  //chain->AddFriend(pileupTree);
+  //Printf("pileupTree done");
 
   TChain *jetTree = new TChain("ak4PFJetAnalyzer/t");//akPu4CaloJetAnalyzer/t");
   for(size_t i=firstFile; i<lastFile; i++) jetTree->Add(urls[i].c_str());
@@ -176,10 +176,10 @@ void analyzePFCandidates(std::vector<std::string> urls, const char *outname = "e
   if(nentries<0) nentries = chain->GetEntries();
   // Long64_t nentries = 20;//chain->GetEntriesFast();
   Printf("nentries: %lld  tot: %lld",nentries,entries_tot);
-//  for (Long64_t jentry=0; jentry<nentries;jentry++) {
-  for (Long64_t jentry=firstEvent; jentry<lastEvent; ++jentry) {
+  for (Long64_t jentry=0; jentry<nentries;jentry++) {
+  //for (Long64_t jentry=firstEvent; jentry<lastEvent; ++jentry) {
     //Run producers
-    // Printf("produce hiEvent");
+    Printf("produce hiEvent");
     p_evt->Run(jentry);   //hi event properties
     //Printf("produce pf particles");
     p_pf->Run(jentry);    //pf particles

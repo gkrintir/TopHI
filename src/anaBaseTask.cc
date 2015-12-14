@@ -29,6 +29,8 @@ anaBaseTask::anaBaseTask(const char *name, const char *title)
 //----------------------------------------------------------
 void anaBaseTask::Exec(Option_t * /*option*/)
 {
+  printf("anaPFCandidates executing\n");
+
   if(!fInitOutput) CreateOutputObjects();
 
   //Get event properties
@@ -40,7 +42,7 @@ void anaBaseTask::Exec(Option_t * /*option*/)
      }
   }
 
-  if(!SelectEvent()) return;
+  //if(!SelectEvent()) return;
 }
 
 //----------------------------------------------------------

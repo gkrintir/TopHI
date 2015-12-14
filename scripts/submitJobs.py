@@ -27,7 +27,7 @@ outDir=opt.output
 
 jobsBase='%s/FARM%s'%(workBase,time.time())
 os.system('mkdir -p %s'%jobsBase)
-os.system('cp %s/src/UserCode/TopFromHeavyIons/test/ExampleAnalysisParameters_cfg.py %s' % (cmsswBase,jobsBase))
+os.system('cp %s/src/UserCode/diall/test/ExampleAnalysisParameters_cfg.py %s' % (cmsswBase,jobsBase))
 
 #init a new proxy if none has been passed
 if opt.proxy is None:
@@ -49,9 +49,9 @@ for n in xrange(1,opt.jobs+1):
     scriptFile.write('cd -\n')
     scriptFile.write('cp %s/ExampleAnalysisParameters_cfg.py .\n' % jobsBase)
     scriptFile.write('runExample ExampleAnalysisParameters_cfg.py %d %d\n' % ((n-1)*opt.files,(n-1)*opt.files+opt.files))
-    scriptFile.write('cmsMkdir $OUTDIR\n')
+    #scriptFile.write('cmsMkdir $OUTDIR\n')
     scriptFile.write('export OUTPUT=AnaResults_%d.root\n' % n)
-    scriptFile.write('cmsStage AnaResults.root $OUTDIR/$OUTPUT\n')
+    scriptFile.write('cp AnaResults.root $OUTDIR/$OUTPUT\n')
     scriptFile.write('rm AnaResults.root\n')
     scriptFile.close()
 
@@ -61,7 +61,8 @@ for n in xrange(1,opt.jobs+1):
     if opt.queue=='':
         print 'Job #%d will run locally' % n
         os.system('%s/runJob_%d.sh' % (jobsBase,n) )
+
     else:
         print 'Job #%d will run remotely' % n
         os.system("bsub -q %s -R \"swp>1000 && pool>30000\" -J tt%d \'%s/runJob_%d.sh\'" % (opt.queue,n,jobsBase,n) )
-        
+

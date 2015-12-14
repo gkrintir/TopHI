@@ -32,7 +32,7 @@ Bool_t pfParticleProducer::Init() {
   if(!inputBase::Init()) return kFALSE;
   
   if(fInputMode==hiForest) {
-    fChain->SetBranchStatus("*", 0);
+    //fChain->SetBranchStatus("*", 0);
     fChain->SetBranchStatus("nPFpart", 1);
     fChain->SetBranchStatus("pf*", 1);
     if (fChain->GetBranch("nPFpart"))

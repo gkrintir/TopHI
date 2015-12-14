@@ -77,7 +77,7 @@ Bool_t lwMuonProducer::Init() {
     if (fChain->GetBranch("Gen_phi"))
       fChain->SetBranchAddress("Gen_phi", &fMuons.Gen_phi, &fMuons.b_Gen_phi);
     // Reco Info
-    fChain->SetBranchStatus("*", 0);
+    //fChain->SetBranchStatus("*", 0);
     fChain->SetBranchStatus("nMu", 1);
     fChain->SetBranchStatus("mu*", 1);
     if (fChain->GetBranch("nMu"))
@@ -124,7 +124,7 @@ Bool_t lwMuonProducer::Init() {
       fChain->SetBranchAddress("muPFNeuIso", &fMuons.Glb_pfNeuIso, &fMuons.b_Glb_pfNeuIso);
     if (fChain->GetBranch("muPFPUIso"))
       fChain->SetBranchAddress("muPFPUIso", &fMuons.Glb_pfPUIso, &fMuons.b_Glb_pfPUIso);
-    
+
     fInit = kTRUE;
   }
   return kTRUE;
