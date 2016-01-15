@@ -17,7 +17,9 @@ import FWCore.ParameterSet.VarParsing as VarParsing
 
 #print('anaFile: ',options.anaFile)
 
-tt_PbPb=("ZMMpp_v0.root","/store/group/phys_heavyions/velicanu/forest/Run2015E/SingleMuHighPt/RAW-RECO/ZMM-PromptReco-v1/Merged/")
+#tt_PbPb=("ZMMpp_v0.root","/store/group/phys_heavyions/velicanu/forest/Run2015E/SingleMuHighPt/RAW-RECO/ZMM-PromptReco-v1/Merged/")
+tt_PbPb=("HiForestAOD_1.root","/store/user/gkrintir/TopHI/HighPtLowerPhotons_Run2015E-PromptReco-v1_v1/HighPtLowerPhotons/crab_TopHI/160111_200108/0000/")
+QCD_PbPb=("HiForestAOD_Pythia8_EmEnrichedDijet30_TuneCUETP8M1_5020GeV_SingleParticleFilter.root","/store/group/phys_heavyions/ygo/EmEnrichedDijet30/")
 DY_PbPb=("HiForest_1.root","store/user/dgulhan/Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV_GEN_SIM/HiForest_Pythia8_Z30mumuJet_pthat30Norm_TuneCUETP8M1_5020GeV/151204_102722/0000/")
 QCDEM_PbPb=("QCDEM_PbPb.root","/store/cmst3/group/hintt/CMSSW/QCDEMriched_80to250/NTUPLE")
 QCDDJ_PbPb=("QCDDJ_PbPb.root","/store/cmst3/user/mverweij/jetsPbPb/Run2Prep/Dijet80CMSSW753p1/v6/PyquenUnquenched_Dijet_NcollFilt_pthat80_740pre8_MCHI1_74_V4_GEN-SIM_v3/crab_HiForestDijet80Run2Fullv6/151020_135458")
@@ -44,7 +46,8 @@ centralityBins=centralityRequirements["inc"]
 
 config = cms.PSet(
     output = cms.string('cen_%dto%d_%s'%(centralityBins[0],centralityBins[1],sample[0])),
-    input  = cms.vstring( fillFromStore(sample[1]) ),
+    #input  = cms.vstring( fillFromStore(sample[1]) ),
+    input = cms.vstring ("root://cmsxrootd.fnal.gov//store/user/gkrintir/TopHI/HighPtLowerPhotons_Run2015E-PromptReco-v1_v1/HighPtLowerPhotons/crab_TopHI/160111_200108/0000/HiForestAOD_1.root"),
     maxEvents = cms.int32(-1),#-1),
     minCentrality = cms.int32(centralityBins[0]),
     maxCentrality = cms.int32(centralityBins[1])#,

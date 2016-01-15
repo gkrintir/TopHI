@@ -53,8 +53,8 @@ def fillFromStore(dir,ffile=0,step=-1,generatePfn=True):
     elif dir.find('/store/')==0:
         prefix='eoscms'
         lscommand = 'cmsLs ' + dir + ' | grep root | awk \'{print $1}\''
-        print lscommand
         lsouttmp = commands.getstatusoutput(lscommand)[1].split()
+        print lsouttmp
 
         #this is needed as cmsLs lists twice files staged from castor
         #(only needed during transition to EOS, can remove now)
@@ -90,6 +90,7 @@ def fillFromStore(dir,ffile=0,step=-1,generatePfn=True):
                 if prefix=='eoscms':
                     if(generatePfn) :
                         sline='root://eoscms//eos/cms/'+dir+'/'+line
+                        #sline='root://cmsxrootd.fnal.gov/'+dir+'/'+line
                         #sline=commands.getstatusoutput('cmsPfn ' + line )[1]
                     else            : sline=line
                 elif(prefix=='singlefile') :
@@ -99,6 +100,7 @@ def fillFromStore(dir,ffile=0,step=-1,generatePfn=True):
                     if(len(sline)==0): continue
 
                 localdataset.extend( [ sline ] )
+                print localdataset
         ifile=ifile+1
 
     return localdataset

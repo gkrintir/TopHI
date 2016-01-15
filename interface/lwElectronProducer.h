@@ -66,6 +66,6 @@ class lwElectronProducer : public inputBase {
   lwElectronProducer(const lwElectronProducer& obj); // copy constructor
   lwElectronProducer& operator=(const lwElectronProducer& other); // assignment
   
-  //ClassDef(lwElectronProducer,2)
+  ClassDef(lwElectronProducer,1)
 };
 #endif

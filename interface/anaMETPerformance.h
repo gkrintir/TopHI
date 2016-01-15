@@ -57,9 +57,12 @@ public:
    Float_t           fMassZCands;
    Float_t           fPtZCands;
    Float_t           fEtaZCands;
+   Float_t           fMET;
+   Float_t           fuParaZll;
    Float_t           fuParaZllPt;
+   Float_t           fuPerpZll;
    //TH2F             *fh2MetCentPtMin[10];   //!MET vs centrality for various min pt cuts
    
-   //ClassDef(anaMETPerformance,2)
+   ClassDef(anaMETPerformance,1)
 };
 #endif

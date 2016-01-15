@@ -17,6 +17,8 @@
 
 #include "TClass.h"
 
+ClassImp(anaMETPerformance)
+
 anaMETPerformance::anaMETPerformance(const char *name, const char *title) 
 :anaBaseTask(name,title),
   fCheckPid(kFALSE),
@@ -30,10 +32,13 @@ anaMETPerformance::anaMETPerformance(const char *name, const char *title)
   fZsName(""),
   fMETPerformanceInfo(0x0),
   fNZCands(0),
-  fMassZCands(0),
-  fPtZCands(0),
-  fEtaZCands(0),
-  fuParaZllPt(0)
+  fMassZCands(0.),
+  fPtZCands(0.),
+  fEtaZCands(0.),
+  fMET(0.),
+  fuParaZll(0.),
+  fuParaZllPt(0.),
+  fuPerpZll(0.)
   
 {
   
@@ -43,7 +48,6 @@ anaMETPerformance::anaMETPerformance(const char *name, const char *title)
 void anaMETPerformance::Exec(Option_t * /*option*/)
 {
 
-   printf("anaMETPerformance executing\n"); 
    fNZCands = 0;
   
    TLorentzVector met ; TLorentzVector l;
@@ -58,7 +62,6 @@ void anaMETPerformance::Exec(Option_t * /*option*/)
      fMuons = dynamic_cast<TClonesArray*>(fEventObjects->FindObject(fMuonsName.Data()));
    }
    if(!fMuons) return;
-   
    //Make array for Z candidates
    if(!fEventObjects->FindObject(fZsName) && !fZs) {
       fZs = new TClonesArray("diParticle");
@@ -66,12 +69,13 @@ void anaMETPerformance::Exec(Option_t * /*option*/)
       fEventObjects->Add(fZs);
     }
    if(fZs) fZs->Delete();
-
+   
    //Double_t cent = fHiEvent->GetCentrality();
    Int_t nmuons = fMuons->GetEntriesFast();
-   //Printf("nmuons: %d",nmuons);
+   Printf("nmuons: %d",nmuons);
    //   fh1NMuons->Fill(nmuons);
    if(nmuons<2) return;
+   printf("anaMETPerformance executing\n"); 
 
 
    for (int i = 0; i < fMuons->GetEntriesFast(); i++) {
@@ -210,6 +214,7 @@ void anaMETPerformance::Exec(Option_t * /*option*/)
    //Printf("muon loop %d\n", fParticles->GetEntriesFast());
 	
    met = -p4;
+   fMET = met.Pt();
    //printf("!! mpika edp %f %f\n", met.Pt(), p4.Pt());
    //fh2MetCent->Fill(cent,met.Pt());
    //fh2SumEtCent->Fill(cent,sumEt);
@@ -219,7 +224,7 @@ void anaMETPerformance::Exec(Option_t * /*option*/)
      TLorentzVector met2 = -r4[j];
      //fh2MetCentPtMin[j]->Fill(cent,met2.Pt());
    }
-
+   std::cout<<fNZCands<<std::endl;
    int error;
    //fh1uParaZllPt->Fill(sumEt);
    for(int i = 0; i<fNZCands; ++i) { 
@@ -232,8 +237,9 @@ void anaMETPerformance::Exec(Option_t * /*option*/)
      fMassZCands = pPart->M();
      fPtZCands = pPart->Pt();
      fEtaZCands = pPart->Eta();
+     fuParaZll = std::get<0>(u);
      fuParaZllPt = std::get<0>(u)+pPart->Pt();
-     
+     fuPerpZll = std::get<1>(u);
      std::cout<< fuParaZllPt <<std::endl;;
      fMETPerformanceInfo->Fill();
    }
@@ -318,7 +324,10 @@ anaMETPerformance::CreateOutputObjects() {
    fMETPerformanceInfo->Branch("MassZCands",&fMassZCands, "MassZCands/F");
    fMETPerformanceInfo->Branch("PtZCands",&fPtZCands, "PtZCands/F");
    fMETPerformanceInfo->Branch("EtaZCands",&fEtaZCands, "EtaZCands/F");
+   fMETPerformanceInfo->Branch("MET",&fMET, "MET/F");
+   fMETPerformanceInfo->Branch("uParaZll",&fuParaZll, "uParaZll/F");
    fMETPerformanceInfo->Branch("uParaZllPt",&fuParaZllPt, "uParaZllPt/F");
+   fMETPerformanceInfo->Branch("uPerpZllPt",&fuPerpZll, "uPerpZll/F");
    
    fOutput->Add(fMETPerformanceInfo);
 

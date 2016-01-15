@@ -14,9 +14,9 @@ public :
 
    // Declaration of leaf types
    // Event info
-   Int_t           Run;
-   Int_t           Event;
-   Int_t           Lumi;
+   UInt_t          Run;
+   ULong64_t       Event;
+   UInt_t          Lumi;
    Int_t           CentBin;
    Float_t         vx;
    Float_t         vy;

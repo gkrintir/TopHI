@@ -7,7 +7,7 @@
 #include "UserCode/diall/interface/lwElectron.h"
 
 
-//ClassImp(lwElectronProducer)
+ClassImp(lwElectronProducer)
 
 //__________________________________________________________
 lwElectronProducer::lwElectronProducer() :
@@ -81,6 +81,7 @@ Bool_t lwElectronProducer::Init() {
   
   if(fInputMode==hiForest) {
     // Gen Info
+    /*
     if (fChain->GetBranch("mult"))
       fChain->SetBranchAddress("mult", &fElectrons.Gen_nptl, &fElectrons.b_Gen_nptl);
     if (fChain->GetBranch("pdg"))
@@ -93,7 +94,9 @@ Bool_t lwElectronProducer::Init() {
       fChain->SetBranchAddress("eta", &fElectrons.Gen_eta, &fElectrons.b_Gen_eta);
     if (fChain->GetBranch("phi"))
       fChain->SetBranchAddress("phi", &fElectrons.Gen_phi, &fElectrons.b_Gen_phi);
+    */
     // Reco Info
+    //fChain->SetBranchStatus("*", 0);
     fChain->SetBranchStatus("nEle",1);     // enable electron branches
     fChain->SetBranchStatus("ele*",1);     // enable electron branches
     if (fChain->GetBranch("nEle")){    printf("mpika!!!!! ");
@@ -293,7 +296,7 @@ Long64_t lwElectronProducer::LoadTree(Long64_t entry) {
     Printf("hiEventProducer: centry smaller than 0");
     return centry;  
   }
-  
+  //fChain->SetNotify(0); 
   fChain->GetEntry(entry); //Line that gives the brake!!
 
   

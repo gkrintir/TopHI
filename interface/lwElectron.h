@@ -23,6 +23,6 @@ class lwElectron : public particleBase {
   
  protected:
   
-  //ClassDef(lwElectron,1)
+  ClassDef(lwElectron,1)
 };
 #endif

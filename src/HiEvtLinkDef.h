@@ -1,5 +1,6 @@
 #include "UserCode/diall/interface/diParticle.h"
 #include "UserCode/diall/interface/ForestMuons.h"
+#include "UserCode/diall/interface/ForestElectrons.h"
 #include "UserCode/diall/interface/ForestPFs.h"
 #include "UserCode/diall/interface/ForestJets.h"
 #include "UserCode/diall/interface/ForestTracks.h"
@@ -13,6 +14,8 @@
 #include "UserCode/diall/interface/lwJetFromForestProducer.h"
 #include "UserCode/diall/interface/lwMuon.h"
 #include "UserCode/diall/interface/lwMuonProducer.h"
+#include "UserCode/diall/interface/lwElectron.h"
+#include "UserCode/diall/interface/lwElectronProducer.h"
 #include "UserCode/diall/interface/particleBase.h"
 #include "UserCode/diall/interface/pfParticle.h"
 #include "UserCode/diall/interface/pfParticleProducer.h"
@@ -29,6 +32,7 @@
 #include "UserCode/diall/interface/anaJetMatching.h"
 #include "UserCode/diall/interface/anaJetQA.h"
 #include "UserCode/diall/interface/anaMET.h"
+#include "UserCode/diall/interface/anaMETPerformance.h"
 #include "UserCode/diall/interface/anaMuonIsolation.h"
 #include "UserCode/diall/interface/anaMuonMatcher.h"
 #include "UserCode/diall/interface/anaPFCandidates.h"
@@ -48,6 +52,7 @@
 
 #pragma link C++ class diParticle;
 #pragma link C++ class ForestMuons;
+#pragma link C++ class ForestElectrons;
 #pragma link C++ class ForestPFs;
 #pragma link C++ class ForestJets;
 #pragma link C++ class ForestTracks;
@@ -61,6 +66,8 @@
 #pragma link C++ class lwJetFromForestProducer;
 #pragma link C++ class lwMuon;
 #pragma link C++ class lwMuonProducer;
+#pragma link C++ class lwElectron;
+#pragma link C++ class lwElectronProducer;
 #pragma link C++ class particleBase;
 #pragma link C++ class pfParticle;
 #pragma link C++ class pfParticleProducer;
@@ -76,6 +83,7 @@
 #pragma link C++ class anaJetMatching;
 #pragma link C++ class anaJetQA;
 #pragma link C++ class anaMET;
+#pragma link C++ class anaMETPerformance;
 #pragma link C++ class anaMuonIsolation;
 #pragma link C++ class anaMuonMatcher;
 #pragma link C++ class anaPFCandidates;

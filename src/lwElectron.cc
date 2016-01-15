@@ -4,7 +4,7 @@
 
 #include "UserCode/diall/interface/lwElectron.h"
 
-//ClassImp(lwElectron)
+ClassImp(lwElectron)
 
 //__________________________________________________________
 lwElectron::lwElectron() :

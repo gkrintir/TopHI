@@ -51,15 +51,15 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   
   //add files to chain
   TChain *chain = NULL;
-  chain = new TChain("hiEvtAnalyzer/HiTree");
+  //chain = new TChain("hiEvtAnalyzer/HiTree");
   //chain = new TChain("HiGenParticleAna/hi");
-  for(size_t i=firstFile; i<lastFile; i++) {chain->Add(urls[i].c_str());   printf("%s", urls[i].c_str());}
-  Printf("hiTree done");
+  // for(size_t i=firstFile; i<lastFile; i++) {chain->Add(urls[i].c_str());   printf("%s", urls[i].c_str());}
+  //Printf("hiTree done");
   
-
-  TChain *pfTree = new TChain("pfcandAnalyzer/pfTree");
-  for(size_t i=firstFile; i<lastFile; i++) pfTree->Add(urls[i].c_str());
-  chain->AddFriend(pfTree);
+  chain = new TChain("pfcandAnalyzer/pfTree");
+  //TChain *pfTree = new TChain("pfcandAnalyzer/pfTree");
+  for(size_t i=firstFile; i<lastFile; i++) chain->Add(urls[i].c_str());
+  //chain->AddFriend(pfTree);
   Printf("pfTree done");
 
 
@@ -109,20 +109,21 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   p_pf->SetInput(chain);
   p_pf->SetpfParticlesName("pfParticles");
   p_pf->SetEventObjects(fEventObjects);
-  
+
+
   lwMuonProducer *p_mu = new lwMuonProducer("lwMuonProd");
   p_mu->SetInput(chain);
   p_mu->SetlwMuonsRecoName("lwMuonsReco");
   //p_mu->SetlwMuonsGeneName("lwMuonsGene");
   p_mu->SetEventObjects(fEventObjects);
+
   
-  /*
-  lwElectronProducer *p_mu = new lwElectronProducer("lwElectronProd");
-  p_mu->SetInput(chain);
-  p_mu->SetlwElectronsRecoName("lwElectronsReco");
+  lwElectronProducer *p_ele = new lwElectronProducer("lwElectronProd");
+  p_ele->SetInput(chain);
+  p_ele->SetlwElectronsRecoName("lwElectronsReco");
   //p_mu->SetlwMuonsGeneName("lwMuonsGene");                                                                                         
-  p_mu->SetEventObjects(fEventObjects);
-  */
+  p_ele->SetEventObjects(fEventObjects);
+  
   lwJetFromForestProducer *p_PUJet = new lwJetFromForestProducer("lwJetForestProd");
   p_PUJet->SetInput(chain);
   p_PUJet->SetJetContName("akt4PF");
@@ -351,7 +352,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   metPFRaw->ConnectEventObject(fEventObjects);
   metPFRaw->SetHiEvtName("hiEventContainer");
   metPFRaw->SetParticlesName("pfParticles");
-  metPFRaw->SetMuonsName("lwElectronsReco");
+  metPFRaw->SetMuonsName("lwMuonsReco");
   metPFRaw->SetMetType(anaMETPerformance::kPFRaw);
   handler->Add(metPFRaw);
 
@@ -362,6 +363,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   metPFRaw_ee->SetMuonsName("lwElectronsReco");
   metPFRaw_ee->SetMetType(anaMETPerformance::kPFRaw);
   handler->Add(metPFRaw_ee);
+
   /*
   anaMET *metPFRaw = new anaMET("metPFRaw","metPFRaw");
   metPFRaw->ConnectEventObject(fEventObjects);
@@ -486,6 +488,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
     p_evt->Run(jentry);   //hi event properties
     p_pf->Run(jentry);    //pf particles
     p_mu->Run(jentry);    //muons
+    p_ele->Run(jentry);    //electrons
     //p_gen->Run(jentry);    //generated particles
     p_PUJet->Run(jentry); //forest jets
 	    
@@ -504,6 +507,7 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
 
   fEventObjects->Print();
   
+  
   TFile *out = new TFile(outname,"RECREATE");
   //rhoProd->GetOutput()->Write(rhoProd->GetName(),TObject::kSingleKey);
   TList *tasks = handler->GetListOfTasks();
@@ -514,5 +518,6 @@ void analyze(std::vector<std::string> urls, const char *outname = "eventObjects.
   
   out->Write();
   out->Close();
+  
   
 }
